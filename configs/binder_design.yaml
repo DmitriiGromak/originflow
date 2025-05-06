@@ -1,16 +1,14 @@
 data:
-  # CSV for path and metadata to training examples. for bidner data collect but not training
   dataset:
     seed: 123
-    cut_mode: False
+    cut_mode: false
     cut_length: 1000
     max_num_res: 5000
-    resolution: 3.
+    resolution: 3.0
     chains: all
-    category:
+    category: null
     complex: 1
-    use_cluster: False
-
+    use_cluster: false
     cache_num_res: 0
     min_num_res: 40
     subset: null
@@ -18,8 +16,7 @@ data:
     num_eval_lengths: 10
     min_eval_length: 512
     csv_path: //home/junyu/project/binder_target/1bj1/preprocessed/metadata.csv
-    pkl_file_path:
-
+    pkl_file_path: null
   loader:
     num_workers: 32
     prefetch_factor: 10

@@ -1,8 +1,10 @@
-# Proflow 模型文档
+# Originflow 模型文档
 
+Code of "Robust and Reliable de novo Protein Design: A Flow-Matching-Based Protein Generative Model Achieves Remarkably High Success Rates"
+(https://www.biorxiv.org/content/10.1101/2025.04.29.651154v1)
 ## 概述
 
-Proflow 模型主要用于以下蛋白质生成任务：
+Originflow 模型主要用于以下蛋白质生成任务：
 - 蛋白质的无条件生成
 - 基于 Motif 的蛋白质生成
 - 指定二级结构的蛋白质生成
@@ -10,6 +12,9 @@ Proflow 模型主要用于以下蛋白质生成任务：
 - Binder 蛋白质生成
 
 ## 代码与权重
+
+权重可以通过：https://drive.google.com/file/d/1saiYp4K0HKeXYzcedB7f_TbB0l4A3iH3/view?usp=sharing
+下载
 
 针对不同任务微调了多个模型：
 
@@ -33,7 +38,7 @@ Proflow 模型主要用于以下蛋白质生成任务：
 
 主要有两个环境：
 
-1. **Proflow 环境**：参照 proflows.yaml
+1. **Originflow 环境**：参照 Originflows.yaml
 2. **ESM 环境**：参照西湖大学李子青的 genie 那个环境就行
 
 ## 生成任务
@@ -43,10 +48,11 @@ Proflow 模型主要用于以下蛋白质生成任务：
 1. **预处理数据**：
    - 将结构处理为一个 reference.pkl，使用 `data/process_pdb_files.py`
    - 这个过程会删除无用信息，保留大分子结构，重塑 residueindex 等等
-   - 主要修改其中的 `--pdb_dir`，之后会在 `--write_dir` 生成一个 reference.pkl
+   - 主要修改其中的 `--pdb_dir`，之后会在 `--write_dir` 生成一个metadata.csv
+   - 通过 prepare_binder_data.py 将其生成一个 reference.pkl
 
 2. **生成 binder**：
-   - 使用 `experiments/Proflow_binder.py`
+   - 使用 `experiments/Originflow_binder.py`
    - 主要使用方法：`sample_binder_bylength_hotspot` 或 `sample_binder_reference_chains` 以及其他
    - 几种的主要区别在于初始原点的确立，大致上分为：以 target 蛋白的质心作为原点，或者以参考点位作为原点，或者可以调节以原来 target 和 binder 的综合质心为原点
    - 这一步的影响是至关重要的，因为模型初始化结构的时候，是借鉴参考半径的，参考半径是序列长度的函数，如果初始位点选不好，生成结构容易与 target 交错或者拉开过远的距离
@@ -66,6 +72,7 @@ Proflow 模型主要用于以下蛋白质生成任务：
    - 输入生成样本的文件夹路径，在 `pipeline.evaluate` 这里指定固定链条的序号，(A,B,C,) 这种
    - 这里之所以不是 1-2-3 这种，是因为在迭代设计过程中，有可能直接对前次预测出来的结构，再直接再次填充序列，所以接受 ABC 这种更方便
    - 在 `genie/evaluations/pipeline/pipeline_binder_pdb.py` 里面，我们要调整填充哪条链的序列。一般默认上述的 ABC 指定链条，但这里注意一下，我只写了 A~E 的映射，因为一般也不会超过 3 条，如果多了，这里可以改
+   - **调用 MPNN 生成序列并使用 ESMFOLD 预测结构的相关代码位于 `evaluations` 文件夹中。安装好 genie 环境后，可以在该环境中直接运行 `evaluations` 文件夹里的相关代码来进行序列填充和结构预测。**
    - 工作流：backbone 设计 → MPNN 填充序列 → ESMFOLD 预测结构
    - 跑完之后，得到的结构，看 plddt 和 pAE，会在目标文件夹下面生成一个子文件夹，看里面的 info.csv 就行
    - 一般我就看 plddt 取前 10~20 个，然后找结构不一样的，比如取几个 alpha 的，取几个 beta 的，最好看起来不一样
@@ -84,6 +91,28 @@ Proflow 模型主要用于以下蛋白质生成任务：
 
 ### 无条件生成
 
-使用 `experiments/inference_se3_flows.py` 可以直接生成 monomer，也可以生成多链复合物。
+使用 `experiments/Originflow_un.py` 可以直接生成 monomer，也可以生成多链复合物。
 
 如果指定二级结构，则请参照这种形式来，如果有参照的 pdb，可以使用 `data/generate_ss.py` 来生成该 txt 参考文件： 
+
+### Motif生成 SYM 生成
+可以参考文章的附件，按照附件操作
+
+### Binder 相关 PDB 文件
+
+论文中提到的所有 binder 的 PDB 文件（包括结构和序列）均已整理在 `case` 文件夹下，可直接使用。
+
+## 联系方式与致谢
+
+如对本项目感兴趣，欢迎联系我（joreyyan@buaa.edu.cn），共同探讨与合作。  
+推特（Twitter）：[@joreyyan](https://twitter.com/joreyyan)  
+我们支持快速开发 binder 相关应用，欢迎有合作意向的朋友多多交流。
+
+特别感谢以下开源项目和工具对本工作的支持与启发：
+- [AlphaFold2](https://www.deepmind.com/research/open-source/alphafold)
+- [ESMFold](https://github.com/facebookresearch/esm)
+- [RFdiffusion](https://github.com/RosettaCommons/RFdiffusion)
+- [ProteinMPNN](https://github.com/dauparas/ProteinMPNN)
+- [genie](https://github.com/aqlaboratory/genie)
+
+对 AI + 生物（AI BIO）方向感兴趣的同仁，欢迎随时联系交流，共同进步！
