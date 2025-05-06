@@ -1,0 +1,26 @@
+Name,Description,Input,Successed Cases
+1BCF,Di-iron binding motif,"8-15,A92-99,16-30,A123-130,16-30,A47-54,16-30,A18-25,8-15",99
+2KL8,De novo designed protein,"A1-7,20-20,A28-79",96
+1PRW,Double EF-hand motif,"5-20,A16-35,10-25,A52-71,5-20",89
+6EXZ_long,RNA export factor,"0-95,A28-42,0-95",67
+6EXZ_med,RNA export factor,"0-65,A28-42,0-65",62
+6EXZ_short,RNA export factor,"0-35,A28-42,0-35",57
+3IXT,RSV F-protein Site II,"10-40,P254-277,10-40",39
+1YCR,P53 helix that binds to Mdm2,"10-40,B19-27,10-40",37
+5IUS,PD-L1 binding interface on PD-1,"0-30,A119-140,15-40,A63-82,0-30",23
+6E6R_long,Ferridoxin Protein,"0-95,A23-35,0-95",20
+5TRV_short,De novo designed protein,"0-35,A45-65,0-35",19
+5TRV_long,De novo designed protein,"0-95,A45-65,0-95",17
+4ZYP,RSV F-protein Site 4,"10-40,A422-436,10-40",11
+5TRV_med,De novo designed protein,"0-65,A45-65,0-65",10
+6E6R_med,Ferridoxin Protein,"0-65,A23-35,0-65",9
+7MRX_128,Barnase ribonuclease inhibitor,"0-122,B25-46,0-122",9
+6VW1,ACE2 interface binding SARS-CoV-2,"E400-510/20-45,A24-42,4-10,A64-82,0-5",7
+6E6R_short,Ferridoxin Protein,"0-35,A23-35,0-35",6
+5WN9,RSV G-protein 2D10 site,"10-40,A170-189,10-40",5
+1QJG,Delta5-3-ketosteroid isomerase active site,"10-20,A38-38,15-30,A14-14,15-30,A99-99,10-20",4
+7MRX_85,Barnase ribonuclease inhibitor,"0-63,B25-46,0-63",4
+7MRX_60,Barnase ribonuclease inhibitor,"0-38,B25-46,0-38",2
+5TPN,RSV F-protein Site V,"10-40,A163-181,10-40",1
+5YUI,Carbonic anhydrase active site,"5-30,A93-97,5-20,A118-120,10-35,A198-200,10-30",1
+4JHW,RSV F-protein Site 0,"10-25,F196-212,15-30,F63-69,10-25",0

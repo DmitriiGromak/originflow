@@ -1,0 +1,119 @@
+data:
+  # CSV for path and metadata to training examples.
+  dataset:
+    seed: 123
+    #max_num_res: 384
+    cache_num_res: 0
+    min_num_res: 60
+    subset: null
+    samples_per_eval_length: 5
+    num_eval_lengths: 80
+    min_eval_length: 400
+    csv_path: ./preprocessed/metadata.csv
+    pkl_file_path:  /home/junyu/project/proflow_H800real/test/your_cleaned_file.pkl
+    #pkl_file_path: /media/junyu/DATA/rcsb_cluster/rcsb_homo_heto.pkl
+  loader:
+    num_workers: 32
+    prefetch_factor: 10
+  sampler:
+    max_batch_size: 2
+    max_num_res_squared: 40000
+
+interpolant:
+  min_t: 1e-3
+  temp:
+  rots:
+    train_schedule: linear
+    sample_schedule: exp
+    exp_rate: 10
+  trans:
+    train_schedule: linear
+    sample_schedule: linear
+  sampling:
+    num_timesteps: 1000
+  self_condition: ${model.edge_features.self_condition}
+
+model:
+  precision: 16-mixed
+  gnn_update: fixtopo
+  node_embed_size: 384
+  edge_embed_size: 128
+  symmetric: False
+  node_features:
+    c_s: ${model.node_embed_size}
+    c_pos_emb: 128
+    c_timestep_emb: 128
+    c_fixedmask_emb: 128
+    embed_diffuse_mask: False
+    max_num_res: 2000
+    timestep_int: 1000
+  edge_features:
+    single_bias_transition_n: 2
+    c_s: ${model.node_embed_size}
+    c_p: ${model.edge_embed_size}
+    relpos_k: 64
+    use_rbf: True
+    num_rbf: 32
+    feat_dim: 64
+    num_bins: 22
+    self_condition: True
+  ipa:
+    c_s: ${model.node_embed_size}
+    c_z: ${model.edge_embed_size}
+    c_hidden: 384
+    no_heads: 8
+    no_qk_points: 8
+    no_v_points: 12
+    seq_tfmr_num_heads: 4
+    seq_tfmr_num_layers: 2
+    num_blocks: 6
+
+experiment:
+  debug: False
+  corrupt_mode: motif
+  seed:
+  num_devices: 1
+  warm_start: /home/junyu/project/frame-flow-main/experiments/ckpt/Proflow_motif/rcsbcluster30_fixtopo_motif_1000_update_all_finetune_right_motifmask/2024-09-30_01-00-47/last.ckpt
+  warm_start_cfg_override: False
+  use_swa: False
+  batch_ot:
+    enabled: True
+    cost: kabsch
+    noise_per_sample: 1
+    permute: False
+  training:
+    update_all: True
+    min_plddt_mask: null
+    loss: se3_vf_loss
+    bb_atom_scale: 0.1
+    trans_scale: 0.1
+    translation_loss_weight: 2.0
+    t_normalize_clip: 0.9
+    rotation_loss_weights: 1.0
+    aux_loss_weight: 1.0
+    aux_loss_t_pass: 0.25
+  wandb:
+    name: rcsbcluster30_fixtopo_motif_1000_update_all_finetune_right_base
+    project: Proflow_motif
+#    id: barpxd1f
+#    resume: must
+    save_code: True
+    tags: [for motif, update all,min_motif_len=1, max_motif_len=20,patch=128,_motif_center,motifornot > 0.5]
+  optimizer:
+    lr: 0.0001
+  trainer:
+    overfit_batches: 0
+    min_epochs: 1 # prevents early stopping
+    max_epochs: 150
+    accelerator: gpu
+    log_every_n_steps: 1
+    deterministic: False
+    #strategy: ddp_find_unused_parameters_true
+    check_val_every_n_epoch: 1
+    accumulate_grad_batches: 2
+  checkpointer:
+    dirpath: ckpt/${experiment.wandb.project}/${experiment.wandb.name}/${now:%Y-%m-%d}_${now:%H-%M-%S}
+    save_last: True
+    save_top_k: 3
+    monitor: valid/non_coil_percent
+    mode: max

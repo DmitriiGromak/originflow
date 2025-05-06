@@ -1,0 +1,54 @@
+# Configuration for inference on SE(3) diffusion experiments.
+defaults:
+  - base
+  - _self_
+
+inference:
+
+  # Use this to write with date-time stamp.
+  lam:
+  name: motifmodel_design_for_motif_zeros_updatemotif_area
+  seed:
+
+
+  ckpt_path: ../weight/motif.ckpt
+
+  output_dir: /home/junyu/project/motif_test/base_neigh/
+
+  use_gpu: True
+  num_gpus: 1
+
+  interpolant:
+    min_t: 1e-3
+    temp: ${inference.lam}
+    rots:
+      corrupt: True
+      sample_schedule: exp
+      exp_rate: 10
+    trans:
+      corrupt: True
+      sample_schedule: linear
+    sampling:
+      methods: cvode
+      num_timesteps: 1000
+    self_condition: True
+
+  samples:
+
+    # Number of backbone samples per sequence length.
+    samples_per_length: 1
+
+    # Minimum sequence length to sample.
+    min_length: 400
+
+    # Maximum sequence length to sample.
+    max_length: 400
+
+    # gap between lengths to sample. i.e. this script will sample all lengths
+    # in range(min_length, max_length, length_step)
+    length_step: 10
+
+    # Subset of lengths to sample. If null, sample all targets.
+    length_subset: null
+
+    overwrite: False

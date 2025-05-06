@@ -1,0 +1,146 @@
+data:
+  dataset:
+    seed: 123
+    cache_num_res: 0
+    min_num_res: 60
+    subset: null
+    samples_per_eval_length: 5
+    num_eval_lengths: 8
+    min_eval_length: 500
+    csv_path: ./preprocessed/metadata.csv
+    pkl_file_path: /home/junyu/project/frame-flow/data/2.6_all_all_1000_40_cutTrue_cutlength384_clusterTrue_base_with_ss.pkl
+  loader:
+    num_workers: 32
+    prefetch_factor: 10
+  sampler:
+    max_batch_size: 8
+    max_num_res_squared: 150000
+interpolant:
+  min_t: 0.01
+  temp: null
+  rots:
+    train_schedule: linear
+    sample_schedule: exp
+    exp_rate: 10
+  trans:
+    train_schedule: linear
+    sample_schedule: linear
+  sampling:
+    num_timesteps: 500
+  self_condition: ${model.edge_features.self_condition}
+model:
+  precision: 16-mixed
+  gnn_update: fixtopo
+  node_embed_size: 256
+  edge_embed_size: 128
+  symmetric: true
+  node_features:
+    c_s: ${model.node_embed_size}
+    c_SS_emb: 128
+    c_pos_emb: 128
+    c_timestep_emb: 128
+    c_fixedmask_emb: 128
+    embed_diffuse_mask: false
+    max_num_res: 2000
+    timestep_int: 1000
+  edge_features:
+    single_bias_transition_n: 2
+    c_s: ${model.node_embed_size}
+    c_p: ${model.edge_embed_size}
+    relpos_k: 64
+    use_rbf: true
+    num_rbf: 32
+    feat_dim: 64
+    num_bins: 22
+    self_condition: true
+  ipa:
+    c_s: ${model.node_embed_size}
+    c_z: ${model.edge_embed_size}
+    c_hidden: 128
+    no_heads: 8
+    no_qk_points: 8
+    no_v_points: 12
+    seq_tfmr_num_heads: 4
+    seq_tfmr_num_layers: 2
+    num_blocks: 6
+experiment:
+  debug: false
+  corrupt_mode: base_ss
+  seed: null
+  num_devices: 1
+  warm_start: /home/junyu/project/frame-flow-main/experiments/ckpt/se3-fm/base_rcsbcluster30_fixtopo_withss/2024-06-26_01-15-41/last.ckpt
+  warm_start_cfg_override: false
+  use_swa: false
+  batch_ot:
+    enabled: true
+    cost: kabsch
+    noise_per_sample: 1
+    permute: false
+  training:
+    min_plddt_mask: null
+    loss: se3_vf_loss
+    bb_atom_scale: 0.1
+    trans_scale: 0.1
+    translation_loss_weight: 2.0
+    t_normalize_clip: 0.9
+    rotation_loss_weights: 1.0
+    aux_loss_weight: 1.0
+    aux_loss_t_pass: 0.25
+  wandb:
+    name: base_rcsbcluster30_fixtopo_withss
+    project: se3-fm
+    save_code: true
+    tags: []
+  optimizer:
+    lr: 0.0001
+  trainer:
+    overfit_batches: 0
+    min_epochs: 1
+    max_epochs: 100
+    accelerator: gpu
+    log_every_n_steps: 1
+    deterministic: false
+    strategy: ddp_find_unused_parameters_true
+    check_val_every_n_epoch: 1
+    accumulate_grad_batches: 2
+  checkpointer:
+    dirpath: ./
+    save_last: true
+    save_top_k: 3
+    monitor: valid/non_coil_percent
+    mode: max
+pdb_name: 6n3dA01
+ss_list_str: '[1, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 3, 3, 3, 3, 1, 1, 1, 1, 3, 3, 3, 3,
+  3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1,
+  1, 1, 2, 2, 2, 2, 2, 1, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 2, 2, 1, 1,
+  2, 2, 1, 2, 2, 2, 2, 1, 1]'
+design_task: monomer_ss
+inference:
+  lam: 1
+  name: basesself_design_for_monomer_sscondition
+  seed: null
+  ckpt_path: ../weight/motif_forbase_sscondition.ckpt
+  output_dir: ../output/ss/
+  use_gpu: true
+  num_gpus: 1
+  interpolant:
+    min_t: 0.001
+    temp: ${inference.lam}
+    rots:
+      corrupt: true
+      sample_schedule: exp
+      exp_rate: 10
+    trans:
+      corrupt: true
+      sample_schedule: linear
+    sampling:
+      methods: cvode
+      num_timesteps: 500
+    self_condition: true
+  samples:
+    samples_per_length: 1
+    min_length: 40
+    max_length: 400
+    length_step: 10
+    length_subset: null
+    overwrite: false

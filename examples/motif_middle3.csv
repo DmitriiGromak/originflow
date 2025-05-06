@@ -1,0 +1,9 @@
+Name,Description,Input,TotalLength
+4ZYP,RSV F-protein Site 4,"10-40,A422-436,10-40","30-50"
+5WN9,RSV G-protein 2D10 site,"10-40,A170-189,10-40","35-50"
+5TRV_short,De novo designed protein,"0-35,A45-65,0-35",56
+5TRV_med,De novo designed protein,"0-65,A45-65,0-65",86
+5TRV_long,De novo designed protein,"0-95,A45-65,0-95",116
+6E6R_short,Ferridoxin Protein,"0-35,A23-35,0-35",48
+6E6R_med,Ferridoxin Protein,"0-65,A23-35,0-65",78
+6E6R_long,Ferridoxin Protein,"0-95,A23-35,0-95",108

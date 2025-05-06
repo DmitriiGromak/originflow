@@ -1,0 +1,5 @@
+Name,Description,Input,TotalLength
+5TRV_long,De novo designed protein,"0-95,A45-65,0-95",116
+6E6R_short,Ferridoxin Protein,"0-35,A23-35,0-35",48
+6E6R_med,Ferridoxin Protein,"0-65,A23-35,0-65",78
+6E6R_long,Ferridoxin Protein,"0-95,A23-35,0-95",108
