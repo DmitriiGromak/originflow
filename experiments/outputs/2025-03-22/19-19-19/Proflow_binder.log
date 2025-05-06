@@ -1,0 +1,2 @@
+[2025-03-22 19:19:20,996][data.pdb_dataloader][INFO] - read datas of length: 1
+[2025-03-22 19:19:21,476][data.so3_utils][INFO] - Data saved to .cache/cache_igso3_s0.100-1.500-1000_l1000_o1000-3.npz

@@ -1,0 +1,5 @@
+[2025-05-06 17:21:23,497][__main__][INFO] - Starting inference with 1 GPUs
+[2025-05-06 17:21:23,497][__main__][INFO] - Saving results to /home/junyu/project/motif_test/base_neigh/../weight/motif/RECHECK_usemotifmodel_find_best_monomer
+[2025-05-06 17:21:23,500][__main__][INFO] - Saving inference config to /home/junyu/project/motif_test/base_neigh/../weight/motif/RECHECK_usemotifmodel_find_best_monomer/config.yaml
+[2025-05-06 17:21:25,140][__main__][INFO] - Using devices: [0]
+[2025-05-06 17:21:25,339][__main__][INFO] - Finished in 1.84s

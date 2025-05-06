@@ -1,0 +1,6 @@
+[2025-03-22 20:37:39,860][__main__][INFO] - Starting inference with 1 GPUs
+[2025-03-22 20:37:39,860][__main__][INFO] - Saving results to ../output/sym/sym_modified/motif_sym
+[2025-03-22 20:37:39,863][__main__][INFO] - Saving inference config to ../output/sym/sym_modified/motif_sym/config.yaml
+[2025-03-22 20:37:41,193][__main__][INFO] - Using devices: [0]
+[2025-03-22 20:37:41,415][models.symmetry][INFO] - Initializing cyclic symmetry order 3.
+[2025-03-22 20:38:11,638][__main__][INFO] - Finished in 31.78s

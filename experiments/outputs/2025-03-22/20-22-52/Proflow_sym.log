@@ -1,0 +1,6 @@
+[2025-03-22 20:22:53,110][__main__][INFO] - Starting inference with 1 GPUs
+[2025-03-22 20:23:19,098][__main__][INFO] - Saving results to ../output/sym/sym_modified/motif_sym
+[2025-03-22 20:23:30,652][__main__][INFO] - Saving inference config to ../output/sym/sym_modified/motif_sym/config.yaml
+[2025-03-22 20:23:35,454][__main__][INFO] - Using devices: [0]
+[2025-03-22 20:37:23,236][data.so3_utils][INFO] - Data loaded from .cache/cache_igso3_s0.100-1.500-1000_l1000_o1000-3.npz
+[2025-03-22 20:37:34,908][__main__][INFO] - Finished in 881.80s

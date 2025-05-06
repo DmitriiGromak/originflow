@@ -1,0 +1,8 @@
+[2025-03-22 21:13:18,087][__main__][INFO] - Starting inference with 1 GPUs
+[2025-03-22 21:13:18,087][__main__][INFO] - Saving results to ../output/ss/../weight/motif_forbase_sscondition/basesself_design_for_monomer_sscondition
+[2025-03-22 21:13:18,091][__main__][INFO] - Saving inference config to ../output/ss/../weight/motif_forbase_sscondition/basesself_design_for_monomer_sscondition/config.yaml
+[2025-03-22 21:13:19,623][__main__][INFO] - Using devices: [0]
+[2025-03-22 21:13:20,414][__main__][INFO] - Finished in 2.33s
+[2025-03-22 21:13:20,414][__main__][INFO] - Starting inference with 1 GPUs
+[2025-03-22 21:13:20,415][__main__][INFO] - Saving results to ../output/ss/../weight/motif_forbase_sscondition/basesself_design_for_monomer_sscondition
+[2025-03-22 21:13:20,418][__main__][INFO] - Saving inference config to ../output/ss/../weight/motif_forbase_sscondition/basesself_design_for_monomer_sscondition/config.yaml

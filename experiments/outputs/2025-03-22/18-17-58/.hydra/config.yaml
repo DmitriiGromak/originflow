@@ -1,0 +1,144 @@
+data:
+  dataset:
+    seed: 123
+    cache_num_res: 0
+    min_num_res: 30
+    subset: null
+    samples_per_eval_length: 5
+    num_eval_lengths: 8
+    min_eval_length: 300
+    csv_path: ./preprocessed/metadata.csv
+  loader:
+    num_workers: 32
+    prefetch_factor: 10
+  sampler:
+    max_batch_size: 18
+    max_num_res_squared: 150000
+interpolant:
+  min_t: 0.001
+  temp: 1
+  rots:
+    train_schedule: linear
+    sample_schedule: exp
+    exp_rate: 10
+  trans:
+    train_schedule: linear
+    sample_schedule: linear
+  sampling:
+    num_timesteps: 500
+  self_condition: ${model.edge_features.self_condition}
+model:
+  precision: 16-mixed
+  node_embed_size: 256
+  edge_embed_size: 128
+  symmetric: false
+  node_features:
+    c_s: ${model.node_embed_size}
+    c_pos_emb: 128
+    c_timestep_emb: 128
+    c_fixedmask_emb: 128
+    max_bf: 150
+    c_bfactor_emb: 128
+    c_SS_emb: 128
+    c_AA_emb: 128
+    c_Chi_emb: 128
+    embed_diffuse_mask: false
+    max_num_res: 2000
+    timestep_int: 500
+  edge_features:
+    single_bias_transition_n: 2
+    c_s: ${model.node_embed_size}
+    c_p: ${model.edge_embed_size}
+    relpos_k: 64
+    use_rbf: true
+    num_rbf: 32
+    feat_dim: 64
+    num_bins: 22
+    self_condition: true
+  ipa:
+    c_s: ${model.node_embed_size}
+    c_z: ${model.edge_embed_size}
+    c_hidden: 128
+    no_heads: 8
+    no_qk_points: 8
+    no_v_points: 12
+    seq_tfmr_num_heads: 4
+    seq_tfmr_num_layers: 2
+    num_blocks: 6
+experiment:
+  debug: true
+  corrupt_mode: binder
+  seed: null
+  num_devices: 1
+  warm_start: ../weight/last.ckpt
+  warm_start_cfg_override: false
+  use_swa: false
+  batch_ot:
+    enabled: true
+    cost: kabsch
+    noise_per_sample: 1
+    permute: false
+  training:
+    min_plddt_mask: null
+    loss: se3_vf_loss
+    bb_atom_scale: 0.1
+    trans_scale: 0.1
+    translation_loss_weight: 2.0
+    t_normalize_clip: 0.9
+    rotation_loss_weights: 1.0
+    aux_loss_weight: 1.0
+    aux_loss_t_pass: 0.25
+    chi_loss_weight: 0.5
+    seq_loss_weight: 0.5
+  wandb:
+    name: binder_pdbbind384_finetune_ssmask_again_a_rcsb_pdbbind_RCSB
+    project: se3-fm
+    save_code: true
+    tags: []
+  optimizer:
+    lr: 5.0e-05
+  trainer:
+    overfit_batches: 0
+    min_epochs: 1
+    max_epochs: 50
+    accelerator: gpu
+    log_every_n_steps: 1
+    deterministic: false
+    strategy: ddp_find_unused_parameters_true
+    check_val_every_n_epoch: 5
+    accumulate_grad_batches: 2
+  checkpointer:
+    dirpath: ckpt/${experiment.wandb.project}/${experiment.wandb.name}/${now:%Y-%m-%d}_${now:%H-%M-%S}
+    save_last: true
+    save_top_k: 3
+    monitor: valid/non_coil_percent
+    mode: max
+inference:
+  lam: null
+  name: rcsb
+  seed: null
+  ckpt_path: ./weight/binder/binder.ckpt
+  sidechain_path: /home/junyu/project/frame-flow-main/experiments/ckpt/se3-fm//binderside_rcsb450_noise/2024-04-09_01-28-03/last.ckpt
+  output_dir: inference_outputs/
+  use_gpu: true
+  num_gpus: 1
+  interpolant:
+    min_t: 0.001
+    temp: ${inference.lam}
+    rots:
+      corrupt: true
+      sample_schedule: exp
+      exp_rate: 10
+    trans:
+      corrupt: true
+      sample_schedule: linear
+    sampling:
+      num_timesteps: 1000
+    self_condition: true
+  samples:
+    samples_per_length: 2
+    min_length: 40
+    max_length: 40
+    length_step: 10
+    length_subset: null
+    overwrite: false

@@ -1,0 +1,5 @@
+[2025-03-22 20:11:25,004][__main__][INFO] - Starting inference with 1 GPUs
+[2025-03-22 20:11:25,004][__main__][INFO] - Saving results to /home/junyu/project/sym/base_neigh/../weight/sym_modified/motif_sym
+[2025-03-22 20:11:25,017][__main__][INFO] - Saving inference config to /home/junyu/project/sym/base_neigh/../weight/sym_modified/motif_sym/config.yaml
+[2025-03-22 20:11:40,590][__main__][INFO] - Using devices: [0]
+[2025-03-22 20:14:14,993][__main__][INFO] - Finished in 169.99s

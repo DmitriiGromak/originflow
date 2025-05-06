@@ -1,0 +1,8 @@
+Sampling Parameters:
+Timestamp: 20250322_191920
+Sampling Method: reference
+Target: [2]
+Length: random(90-200)
+Fixed by Chain: [16]
+Fixed Com Idx: [1]
+Number of Samples: 300

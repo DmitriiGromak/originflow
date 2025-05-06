@@ -1,0 +1,5 @@
+[2025-03-22 20:18:54,304][__main__][INFO] - Starting inference with 1 GPUs
+[2025-03-22 20:18:54,305][__main__][INFO] - Saving results to ../output/sym/../weight/sym_modified/motif_sym
+[2025-03-22 20:18:54,318][__main__][INFO] - Saving inference config to ../output/sym/../weight/sym_modified/motif_sym/config.yaml
+[2025-03-22 20:18:56,001][__main__][INFO] - Using devices: [0]
+[2025-03-22 20:21:28,593][__main__][INFO] - Finished in 154.29s

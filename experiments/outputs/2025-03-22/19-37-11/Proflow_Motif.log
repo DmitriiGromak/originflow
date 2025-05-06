@@ -1,0 +1,4 @@
+[2025-03-22 19:37:11,778][__main__][INFO] - Starting inference with 1 GPUs
+[2025-03-22 19:37:11,778][__main__][INFO] - Saving results to /home/junyu/project/motif_test/base_neigh/../weight/motif/motifmodel_design_for_motif_zeros_updatemotif_area
+[2025-03-22 19:37:11,781][__main__][INFO] - Saving inference config to /home/junyu/project/motif_test/base_neigh/../weight/motif/motifmodel_design_for_motif_zeros_updatemotif_area/config.yaml
+[2025-03-22 19:37:13,279][__main__][INFO] - Using devices: [0]

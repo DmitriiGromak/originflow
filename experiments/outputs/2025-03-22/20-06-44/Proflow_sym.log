@@ -1,0 +1,6 @@
+[2025-03-22 20:06:44,392][__main__][INFO] - Starting inference with 1 GPUs
+[2025-03-22 20:06:44,392][__main__][INFO] - Saving results to /home/junyu/project/sym/base_neigh/../weight/sym_modified/motif_sym
+[2025-03-22 20:06:44,395][__main__][INFO] - Saving inference config to /home/junyu/project/sym/base_neigh/../weight/sym_modified/motif_sym/config.yaml
+[2025-03-22 20:06:45,756][__main__][INFO] - Using devices: [0]
+[2025-03-22 20:06:46,006][models.symmetry][INFO] - Initializing cyclic symmetry order 3.
+[2025-03-22 20:07:21,170][__main__][INFO] - Finished in 36.78s

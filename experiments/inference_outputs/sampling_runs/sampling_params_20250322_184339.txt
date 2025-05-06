@@ -1,0 +1,7 @@
+Sampling Parameters:
+Timestamp: 20250322_184339
+Target: [1, 2]
+Length: random(90-200)
+Hotspot Residues: ['P81', 'P83', 'P91']
+Fixed by Chain: [16]
+Number of Samples: 300

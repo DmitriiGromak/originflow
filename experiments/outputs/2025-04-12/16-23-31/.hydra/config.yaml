@@ -1,0 +1,148 @@
+data:
+  dataset:
+    seed: 123
+    cache_num_res: 0
+    min_num_res: 60
+    subset: null
+    samples_per_eval_length: 5
+    num_eval_lengths: 80
+    min_eval_length: 400
+    csv_path: ./preprocessed/metadata.csv
+    pkl_file_path: //home/junyu/project/frame-flow/data/3_all_all_1500_40_cutTrue_cutlength384_clusterTrue_mulcom_complex_forbase.pkl
+  loader:
+    num_workers: 32
+    prefetch_factor: 10
+  sampler:
+    max_batch_size: 3
+    max_num_res_squared: 30000
+interpolant:
+  min_t: 0.01
+  temp: null
+  rots:
+    train_schedule: linear
+    sample_schedule: exp
+    exp_rate: 10
+  trans:
+    train_schedule: linear
+    sample_schedule: linear
+  sampling:
+    num_timesteps: 500
+  self_condition: ${model.edge_features.self_condition}
+model:
+  precision: 32
+  gnn_update: fixtopo
+  node_embed_size: 256
+  edge_embed_size: 128
+  symmetric: false
+  node_features:
+    c_s: ${model.node_embed_size}
+    c_pos_emb: 128
+    c_timestep_emb: 128
+    c_fixedmask_emb: 128
+    embed_diffuse_mask: false
+    max_num_res: 2000
+    timestep_int: 1000
+  edge_features:
+    single_bias_transition_n: 2
+    c_s: ${model.node_embed_size}
+    c_p: ${model.edge_embed_size}
+    relpos_k: 64
+    use_rbf: true
+    num_rbf: 32
+    feat_dim: 64
+    num_bins: 22
+    self_condition: true
+  ipa:
+    c_s: ${model.node_embed_size}
+    c_z: ${model.edge_embed_size}
+    c_hidden: 128
+    no_heads: 8
+    no_qk_points: 8
+    no_v_points: 12
+    seq_tfmr_num_heads: 4
+    seq_tfmr_num_layers: 2
+    num_blocks: 6
+experiment:
+  debug: false
+  corrupt_mode: motif
+  seed: null
+  num_devices: 1
+  warm_start: /home/junyu/project/frame-flow-main/experiments/ckpt/Proflow_motif/rcsbcluster30_fixtopo_motif_1000_update_all_finetune_right_motifmask_6layers_fape_384_steplr/2024-10-17_13-21-48/last.ckpt
+  warm_start_cfg_override: null
+  use_swa: false
+  batch_ot:
+    enabled: true
+    cost: kabsch
+    noise_per_sample: 1
+    permute: false
+  training:
+    update_all: true
+    min_plddt_mask: null
+    loss: se3_vf_loss
+    bb_atom_scale: 0.1
+    trans_scale: 0.1
+    translation_loss_weight: 2.0
+    t_normalize_clip: 0.9
+    rotation_loss_weights: 1.0
+    aux_loss_weight: 1.0
+    aux_loss_t_pass: 0.25
+  wandb:
+    name: mask_6layers_fape_384_steplr
+    project: Proflow_motif
+    save_code: true
+    tags:
+    - for motif
+    - update all
+    - min_motif_len=1
+    - max_motif_len=8
+    - patch=128
+    - _motif_center
+    - motifornot > 0.5
+  optimizer:
+    lr: 0.0001
+  trainer:
+    overfit_batches: 0
+    min_epochs: 1
+    max_epochs: 150
+    accelerator: gpu
+    log_every_n_steps: 1
+    deterministic: false
+    check_val_every_n_epoch: 1
+    accumulate_grad_batches: 2
+  checkpointer:
+    dirpath: ckpt/${experiment.wandb.project}/${experiment.wandb.name}/${now:%Y-%m-%d}_${now:%H-%M-%S}
+    save_last: true
+    save_top_k: 3
+    monitor: valid/non_coil_percent
+    mode: max
+design_task: null
+inference:
+  lam: null
+  name: RECHECK_usemotifmodel_find_best_monomer
+  seed: null
+  ckpt_path: ../weight/last.ckpt
+  ckpt_motif_path: ../weight/motif.ckpt
+  output_dir: /home/junyu/project/motif_test/base_neigh/
+  use_gpu: true
+  num_gpus: 1
+  interpolant:
+    min_t: 0.001
+    temp: ${inference.lam}
+    rots:
+      corrupt: true
+      sample_schedule: exp
+      exp_rate: 10
+    trans:
+      corrupt: true
+      sample_schedule: linear
+    sampling:
+      methods: cvode
+      num_timesteps: 1000
+    self_condition: true
+  samples:
+    samples_per_length: 1
+    min_length: 128
+    max_length: 128
+    length_step: 1
+    length_subset: null
+    overwrite: false
