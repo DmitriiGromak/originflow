@@ -8,7 +8,7 @@ from omegaconf import OmegaConf
 def update_yaml_config(pdb_dir):
     """更新原始yaml配置文件中的csv_path"""
     # 读取原始配置文件
-    config_path = "/home/junyu/project/frame-flow-main/configs/binder_design.yaml"
+    config_path = "../configs/binder_design.yaml"
     config = OmegaConf.load(config_path)
     
     # 备份原始配置
@@ -59,16 +59,17 @@ def prepare_binder_data(pdb_dir):
     
     finally:
         # 恢复原始配置
-        config = OmegaConf.load("/home/junyu/project/frame-flow-main/configs/binder_design.yaml")
+        config = OmegaConf.load("../configs/binder_design.yaml")
         config.data.dataset.csv_path = original_csv_path
-        OmegaConf.save(config, "/home/junyu/project/frame-flow-main/configs/binder_design.yaml")
+        OmegaConf.save(config, "../configs/binder_design.yaml")
 
 def main():
     parser = argparse.ArgumentParser(description='准备binder设计所需的数据')
     parser.add_argument(
         '--pdb_dir',
         help='包含PDB文件的目录路径',
-        required=True
+        default='//home/junyu/project/binder_target/1bj1/',
+
     )
     args = parser.parse_args()
 
