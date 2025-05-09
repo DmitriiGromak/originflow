@@ -54,7 +54,7 @@ There are two main environments:
    - Process the structure into a reference.pkl using `data/process_pdb_files.py`
    - This process removes unnecessary information, preserves macromolecular structure, reshapes residueindex, etc.
    - Mainly modify `--pdb_dir`, which will generate a metadata.csv in `--write_dir`
-   - Generate a reference.pkl through prepare_binder_data.py
+   - Generate a reference.pkl through `prepare_binder_data.py`
 
 2. **Generate binder**:
    - Use `experiments/Originflow_binder.py`
@@ -177,7 +177,7 @@ Originflow 模型主要用于以下蛋白质生成任务：
    - 将结构处理为一个 reference.pkl，使用 `data/process_pdb_files.py`
    - 这个过程会删除无用信息，保留大分子结构，重塑 residueindex 等等
    - 主要修改其中的 `--pdb_dir`，之后会在 `--write_dir` 生成一个metadata.csv
-   - 通过 prepare_binder_data.py 将其生成一个 reference.pkl
+   - 通过 `prepare_binder_data.py` 将其生成一个 reference.pkl
 
 2. **生成 binder**：
    - 使用 `experiments/Originflow_binder.py`
