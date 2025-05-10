@@ -4,15 +4,15 @@
 
 <a name="english"></a>
 
-### **Binder Design Request**
+### **Binder Design Request** ✉️
 
-If you are interested in designing a **binder** using the OriginFlow model, please feel free to contact us via email at **joreyyan@buaa.edu.cn**. To initiate your binder design request, please include the following details:
+If you are interested in designing a **binder** using the OriginFlow model, please feel free to contact us via email at **joreyyan@buaa.edu.cn** 📧. To initiate your binder design request, please include the following details:
 
-- **Target PDB file**
-- **Target chain**
-- **Any specific design requirements** (e.g., affinity, structural constraints, or other preferences)
+- **Target PDB file** 🧬
+- **Target chain** 🔗
+- **Any specific design requirements** (e.g., affinity, structural constraints, or other preferences) 🎯
 
-We will be happy to assist with the binder design process tailored to your needs. Please reach out with the required information, and we will get back to you promptly.
+We will be happy to assist with the binder design process tailored to your needs. Please reach out with the required information, and we will get back to you promptly! 🤝
 
 
 # Originflow Model Documentation
