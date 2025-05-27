@@ -26,7 +26,7 @@ def save_pdb(xyz, pdb_out="out.pdb"):
     out.close()
 def analysis():
     # Load the dataset
-    data = pd.read_csv('//media/junyu/DATA/scope_preprocessed/metadata.csv')
+    data = pd.read_csv('/content/originflow/pdb/preprocessed/metadata.csv')
 
     # Check the first few entries to understand the data structure
     data_head = data.head()
@@ -55,7 +55,7 @@ def analysis():
     plt.savefig(density_plot_path)
     plt.close()
 def colletdata():
-    config = OmegaConf.load("/home/junyu/project/frame-flow-main/configs/binder_design.yaml")
+    config = OmegaConf.load("/content/originflow/configs/binder_design.yaml")
 
     dataset_cfg=config.data.dataset
 

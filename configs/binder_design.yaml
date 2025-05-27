@@ -15,7 +15,7 @@ data:
     samples_per_eval_length: 5
     num_eval_lengths: 10
     min_eval_length: 512
-    csv_path: //home/junyu/project/binder_target/1bj1/preprocessed/metadata.csv
+    csv_path: /content/originflow/pdb/preprocessed/metadata.csv
     pkl_file_path: null
   loader:
     num_workers: 32

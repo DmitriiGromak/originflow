@@ -484,7 +484,7 @@ class Proflow(nn.Module):
             # 为每个Tensor增加一个空白维度
             ref_data = {
                 key: torch.tensor(value).unsqueeze(0).to(self.device)
-                if isinstance(value, np.ndarray) else value
+                if isinstance(value, (np.ndarray, torch.Tensor)) else value
                 for key, value in ref_data.items()
             }
 
@@ -497,9 +497,9 @@ class Proflow(nn.Module):
             #make new com_idx
             desgin_comidx=Target[0]
             binder_com_idx=torch.ones(size=(com_idx.shape[0],Length),device=self.device)*desgin_comidx
+            com_idx = com_idx.to(binder_com_idx.device)
 
-
-            new_com_idx=torch.cat([com_idx[fixed_mask][None,:],binder_com_idx],dim=-1)
+            new_com_idx=torch.cat([com_idx[fixed_mask][None,:],binder_com_idx],dim=1)
 
             if (~fixed_mask).sum()==0:
                 target_chain=2
