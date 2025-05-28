@@ -451,9 +451,9 @@ class Proflow(nn.Module):
         """
         model_name=self._inf_cfg.ckpt_path.split('/')[-3]
 
-        design_class_name = '1bj1'
-        design_path = '/home/junyu/project/binder_target/1bj1/preprocessed/'
-        ref_path = '//home/junyu/project/binder_target/1bj1/preprocessed/reference.pkl'
+        design_class_name = 'zbeta50'
+        design_path = '/content/originflow/pdb/preprocessed/'
+        ref_path = '/content/originflow/pdb/preprocessed/reference.pkl'
         # 检查文件是否存在
         if os.path.exists(ref_path):
             # 如果文件存在，执行的操作
